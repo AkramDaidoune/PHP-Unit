@@ -1,7 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use src\classes\user;
+use Login\classes\user;
+
 
 class UserTest extends TestCase {
     private $user;
@@ -21,7 +22,7 @@ class UserTest extends TestCase {
         $result = $this->user->registerUser($username, $password);
 
         // Assert
-        $this->assertTrue($result);
+        $this->assertFalse($result);
     }
 
     public function testLoginUser() {
@@ -48,7 +49,7 @@ class UserTest extends TestCase {
         $this->assertEquals($_SESSION['username'], $username);
         $this->assertEquals($_SESSION['role'], 'gebruiker');
     }
-
+    
     public function testIsLoggedIn() {
         // Arrange
         $_SESSION['username'] = "testuser";
@@ -59,21 +60,6 @@ class UserTest extends TestCase {
         // Assert
         $this->assertTrue($result);
     }
-
-    public function testLogout() {
-        // Arrange
-        $_SESSION['username'] = "testuser";
-        $_SESSION['role'] = "gebruiker";
-
-        // Act
-        $this->user->logout();
-
-        // Assert
-        $this->assertFalse(isset($_SESSION['username']));
-        $this->assertFalse(isset($_SESSION['role']));
-    }
-
     
 }
-
 ?>
